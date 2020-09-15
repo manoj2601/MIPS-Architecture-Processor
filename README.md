@@ -23,9 +23,9 @@ BlockRAM Memory Generation has been used to store the data as well as machine co
 A switch is used to display one result at a time. i.e. the 7-segment LED displays the register contents when the switch is 0, and the cycle count otherwise.
 
 ### Instructins Implemented : 
-**R-type:** add, sub, sll, srl, jr
-**I-type:** lw, sw, bne, beq, blez, bgtz
-**j-type:** j, jal
+**R-type:** add, sub, sll, srl, jr  
+**I-type:** lw, sw, bne, beq, blez, bgtz  
+**j-type:** j, jal  
 
 
 ### Instruction Format :
@@ -35,45 +35,45 @@ Register format : Used for arithmetic instructions
 |  Op  |  rs  |  rt  |  rd  |  shamt  |  func  |
 |------|------|------|------|---------|--------|
  
- Op : 6-bits
- rs : 5-bits
- rt : 5-bits
- rd : 5-bits
- shamt : 5-bits
- func : 6-bits 
+ Op : 6-bits  
+ rs : 5-bits  
+ rt : 5-bits  
+ rd : 5-bits  
+ shamt : 5-bits  
+ func : 6-bits  
   
-**Op:** Basic operation of the instruction, traditionally called the opcode. Opcode : The field that denotes the operation and format of an instruction.
-**rs:** The first register source operand.
-**rt:** The second register source operand.
-**rd:** The register destination operand. It gets the result of the operation.
-**func:** Function. This field. often called the function code, selects the specific variant of the operation in the opfield.
+**Op:** Basic operation of the instruction, traditionally called the opcode. Opcode : The field that denotes the operation and format of an instruction.  
+**rs:** The first register source operand.  
+**rt:** The second register source operand.  
+**rd:** The register destination operand. It gets the result of the operation.  
+**func:** Function. This field. often called the function code, selects the specific variant of the operation in the opfield.  
 
 * add, sub, sll, srl, jr instructions use R-format.
 * rs field is unused in shift instructions.
 
 ##### constraints :
-1. add 
-	opcode : 000000
-	shamt : 00000
-	func : 100000
-2. sub
-	opcode : 000000
-	shamt : 00000
-	func : 100010
-3. sll
-	opcode : 000000
-	rs : 00000
-	func : 000000
-4. srl
-	opcode : 000000
-	rs : 00000
-	func : 000010
-5. jr
-	opcode : 000000
-	rt : 00000
-	rd : 00000
-	shamt : 00000
-	func : 001000
+1. add  
+	opcode : 000000  
+	shamt : 00000  
+	func : 100000  
+2. sub  
+	opcode : 000000  
+	shamt : 00000  
+	func : 100010  
+3. sll  
+	opcode : 000000  
+	rs : 00000  
+	func : 000000  
+4. srl  
+	opcode : 000000  
+	rs : 00000  
+	func : 000010  
+5. jr  
+	opcode : 000000  
+	rt : 00000  
+	rd : 00000  
+	shamt : 00000  
+	func : 001000  
 
 
 #### I-type Instruction Format (I-Format)
@@ -82,31 +82,31 @@ Immediate format : Used by the immediate and data transfer instructions.
 |  Op  |  rs  |  rt  |  constant or address  |
 |------|------|------|-----------------------|
  
- Op : 6-bits
- rs : 5-bits
- rd : 5-bits
- address : 16-bits
+ Op : 6-bits  
+ rs : 5-bits  
+ rd : 5-bits  
+ address : 16-bits  
   
-**Op:** Basic operation of the instruction, traditionally called the opcode. Opcode : The field that denotes the operation and format of an instruction.
-**rs:** The first register source operand.
-**rt:** The second register source operand.
-**rd:** The register destination operand. It gets the result of the operation.
-**func:** Function. This field. often called the function code, selects the specific variant of the operation in the opfield.
+**Op:** Basic operation of the instruction, traditionally called the opcode. Opcode : The field that denotes the operation and format of an instruction.  
+**rs:** The first register source operand.  
+**rt:** The second register source operand.  
+**rd:** The register destination operand. It gets the result of the operation.  
+**func:** Function. This field. often called the function code, selects the specific variant of the operation in the opfield.  
 
 ##### constraints :
-1. lw
-	opcode : 100011
-2. sw
-	opcode : 101011
-3. bne
+1. lw  
+	opcode : 100011  
+2. sw  
+	opcode : 101011  
+3. bne  
 	opcode : 000101
-4. beq
+4. beq  
 	opcode : 000100
-5. blez
-	opcode : 000110
+5. blez  
+	opcode : 000110  
 	rt : 00000
-6. bgtz
-	opcode : 000111
+6. bgtz  
+	opcode : 000111  
 	rt : 000000	
 
 
@@ -116,17 +116,17 @@ Jump Instructions:
 |  Op  |    target offset    |
 |------|---------------------|
 
-1. Opcode : 6-bits
-	000010 for *j*
-	000011 for *jal*
-2. target offset : 36-bits
+1. Opcode : 6-bits  
+	000010 for *j*  
+	000011 for *jal*  
+2. target offset : 36-bits  
 	target instruction index (effective target address).
 
 ##### constraints :
-1. j
-	opcode : 000010
-2. jal
-	opcode : 000011
+1. j  
+	opcode : 000010  
+2. jal  
+	opcode : 000011  
 
 ![MIPS Instructions encoding](images/encoding.png)
 
@@ -201,7 +201,7 @@ The single-clock-cycle diagram corresponding to clock cycle 5 of the above pipel
 
 4. In case of J, JR, JAL, we simply put a stall “JumpStall”.
 
-Optmization of the Hazards:
+#### Optmization of the Hazards:
 We can remove the data hazards by *forwarding* and *bypasing* the values. Data hazards occur when we need the value of a register in a stage but it has not updated yet. 
 
 **Here is the pipelined dependences in a five-instruction sequence using simplified datapaths to show the dependences:** All the dependent actions are shown in color, and “CC 1” at the top of the fi gure means clock cycle 1. Th e fi rst instruction writes into $2, and all the following instructions read $2. Th is register is written in clock cycle 5, so the proper value is unavailable before clock cycle 5. (A read of a register during a clock cycle returns the value written at the end of the fi rst half of the cycle, when such a write occurs.) The colored lines from the top datapath to the lower ones show the dependences. Th ose that must go backward in time are pipeline data hazards.
