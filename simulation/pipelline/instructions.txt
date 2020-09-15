@@ -1,0 +1,26 @@
+jal fibonacci
+add $a1 $v0 $zero
+j exit
+fibonacci:
+sub $sp $sp $t1
+sw $ra 2($sp)
+sw $s0 1($sp)
+sw $s1 0($sp)
+add $s0 $a0 $zero
+add $v0 $t4 $zero
+sub $t2 $s0 $t3
+blez $t2 fibonacciexit
+sub $a0 $s0 $t4
+jal fibonacci
+add $s1 $v0 $zero
+sub $a0 $s0 $t3
+jal fibonacci
+add $v0 $s1 $v0
+fibonacciexit:
+lw $ra 2($sp)
+lw $s0 1($sp)
+lw $s1 0($sp)
+add $sp $sp $t1
+jr $ra
+exit:
+HALT
