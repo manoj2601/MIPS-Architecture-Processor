@@ -1,9 +1,11 @@
 # MIPS-Architecture-Processor
-* Developed an general purpose MIPS multi-cycle processor on FPGA using VHDL
-* A state machine was used to control the processor and Block RAM to store instructions as well as memory data
+* It consists of the implemention multi-cycle MIPS processor on FPGA using VHDL and pipelined simulation of the processor using Variable delays and 2-layer Cache memory in C++.
+* A state machine was used to implement the control of the processor.
+* BlockRAM Memory Generation has been used to store the data as well as machine code and initialize the machine code in memory using the *coe* file.
 * Demonstrated on FPGA which contains the different components ALU, Register File and Memory and executes a
 large subset of the MIPS instructions.
-* Simulation module programmed in C++ to observe efficiency of a multi-cycled pipelined MIPS processor.
+* Observe the efficiency of the processor on different HIT and MISS probabilities and delays after each memory access.
+* n-way set associative cache is used that contains LOW and HIGH priority groups of dynamic group size.
 
 Major Points of the Projects : 
 * [MIPS Processor VHDL](#mips-processor-vhdl-)
